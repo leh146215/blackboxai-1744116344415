@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gói Đăng Ký - Kiếm Tiền Quốc Dân</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="font-sans bg-gray-100">
+  <header class="bg-green-600 text-white">
+    <div class="container mx-auto px-4 py-6">
+      <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Gói Đăng Ký</h1>
+        <nav>
+          <ul class="flex space-x-6">
+            <li><a href="/dashboard.html" class="hover:text-green-200"><i class="fas fa-arrow-left"></i> Quay lại</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-10">
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Gói Cơ Bản -->
+      <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-blue-500 transform hover:scale-105 transition duration-300">
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-bold text-blue-500">Gói Cơ Bản</h3>
+          <p class="text-gray-600">Phù hợp cho người mới bắt đầu</p>
+        </div>
+        <div class="text-center mb-6">
+          <p class="text-4xl font-bold">99.000đ</p>
+          <p class="text-gray-500">/tháng</p>
+        </div>
+        <ul class="mb-6 space-y-2">
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Thu nhập: 10.000đ/ngày</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Hoa hồng giới thiệu: 5%</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Hỗ trợ cơ bản</span>
+          </li>
+        </ul>
+        <button onclick="subscribe('basic')" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+          Đăng Ký Ngay
+        </button>
+      </div>
+
+      <!-- Gói Nâng Cao -->
+      <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-orange-500 transform hover:scale-105 transition duration-300">
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-bold text-orange-500">Gói Nâng Cao</h3>
+          <p class="text-gray-600">Dành cho người muốn kiếm nhiều hơn</p>
+        </div>
+        <div class="text-center mb-6">
+          <p class="text-4xl font-bold">299.000đ</p>
+          <p class="text-gray-500">/tháng</p>
+        </div>
+        <ul class="mb-6 space-y-2">
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Thu nhập: 30.000đ/ngày</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Hoa hồng giới thiệu: 5%</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Hỗ trợ 24/7</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Ưu tiên rút tiền</span>
+          </li>
+        </ul>
+        <button onclick="subscribe('premium')" class="w-full bg-orange-500 text-white font-bold py-2 px-4 rounded hover:bg-orange-600 transition duration-300">
+          Đăng Ký Ngay
+        </button>
+      </div>
+
+      <!-- Gói VIP -->
+      <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-yellow-500 transform hover:scale-105 transition duration-300">
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-bold text-yellow-500">Gói VIP</h3>
+          <p class="text-gray-600">Dành cho người muốn kiếm tiền chuyên nghiệp</p>
+        </div>
+        <div class="text-center mb-6">
+          <p class="text-4xl font-bold">599.000đ</p>
+          <p class="text-gray-500">/tháng</p>
+        </div>
+        <ul class="mb-6 space-y-2">
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Thu nhập: 60.000đ/ngày</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Hoa hồng giới thiệu: 5%</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Hỗ trợ VIP 24/7</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Rút tiền ngay lập tức</span>
+          </li>
+          <li class="flex items-center">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <span>Đào tạo kiếm tiền chuyên sâu</span>
+          </li>
+        </ul>
+        <button onclick="subscribe('vip')" class="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded hover:bg-yellow-600 transition duration-300">
+          Đăng Ký Ngay
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2023 Kiếm Tiền Quốc Dân. Tất cả quyền được bảo lưu.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Kiểm tra đăng nhập
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.href = '/dang-nhap.html';
+    }
+
+    // Xử lý đăng ký gói
+    async function subscribe(plan) {
+      try {
+        const response = await fetch('/api/payments/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            plan,
+            userId: JSON.parse(atob(token.split('.')[1])).id
+          })
+        });
+
+        const { id } = await response.json();
+        
+        // Chuyển hướng đến trang thanh toán Stripe
+        const stripe = Stripe(process.env.STRIPE_PUBLIC_KEY);
+        await stripe.redirectToCheckout({ sessionId: id });
+      } catch (err) {
+        alert('Có lỗi xảy ra: ' + err.message);
+      }
+    }
+  </script>
+  <script src="https://js.stripe.com/v3/"></script>
+</body>
+</html>
