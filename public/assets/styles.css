@@ -1,0 +1,65 @@
+/* Font chữ tiếng Việt */
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+/* Hiệu ứng hover cho nút */
+.btn-hover {
+  transition: all 0.3s ease;
+}
+.btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation cho thanh tiến độ */
+@keyframes progress {
+  0% { width: 0; }
+  100% { width: var(--progress); }
+}
+
+.progress-bar {
+  animation: progress 1.5s ease-in-out forwards;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tùy chỉnh scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #4CAF50;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3e8e41;
+}
+
+/* Hiệu ứng cho thẻ gói đăng ký */
+.package-card {
+  transition: all 0.3s ease;
+}
+.package-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Màu sắc chủ đạo */
+.text-primary {
+  color: #2ECC71;
+}
+.bg-primary {
+  background-color: #2ECC71;
+}
+.border-primary {
+  border-color: #2ECC71;
+}
