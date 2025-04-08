@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Điều Khiển - Kiếm Tiền Quốc Dân</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="font-sans bg-gray-100">
+  <header class="bg-green-600 text-white">
+    <div class="container mx-auto px-4 py-6">
+      <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Bảng Điều Khiển</h1>
+        <nav>
+          <ul class="flex space-x-6">
+            <li><a href="/dashboard.html" class="hover:text-green-200"><i class="fas fa-home"></i> Trang chủ</a></li>
+            <li><a href="/giai-dau.html" class="hover:text-green-200"><i class="fas fa-crown"></i> Gói đăng ký</a></li>
+            <li><a href="#" id="logoutBtn" class="hover:text-green-200"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-10">
+    <div class="grid md:grid-cols-3 gap-8 mb-8">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-bold mb-4">Tổng số dư</h3>
+        <p class="text-3xl font-bold text-green-600" id="balance">0 VND</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-bold mb-4">Gói đăng ký</h3>
+        <p class="text-2xl" id="subscription">Chưa đăng ký</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <h3 class="text-xl font-bold mb-4">Người giới thiệu</h3>
+        <p class="text-2xl" id="referrals">0 người</p>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow mb-8">
+      <h3 class="text-xl font-bold mb-4">Lịch sử giao dịch</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full">
+          <thead>
+            <tr class="border-b">
+              <th class="text-left py-2">Ngày</th>
+              <th class="text-left py-2">Mô tả</th>
+              <th class="text-right py-2">Số tiền</th>
+            </tr>
+          </thead>
+          <tbody id="transactions">
+            <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-xl font-bold mb-4">Liên kết giới thiệu</h3>
+      <div class="flex items-center">
+        <input type="text" id="referralLink" readonly class="border border-gray-300 p-2 rounded-l w-full">
+        <button onclick="copyReferralLink()" class="bg-green-600 text-white p-2 rounded-r hover:bg-green-700">
+          <i class="fas fa-copy"></i> Sao chép
+        </button>
+      </div>
+      <p class="mt-2 text-sm text-gray-600">Chia sẻ liên kết này để nhận hoa hồng 5% từ người được giới thiệu</p>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2023 Kiếm Tiền Quốc Dân. Tất cả quyền được bảo lưu.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Kiểm tra đăng nhập
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.href = '/dang-nhap.html';
+    }
+
+    // Lấy thông tin người dùng
+    async function fetchUserData() {
+      try {
+        const response = await fetch('/api/auth/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error('Phiên đăng nhập hết hạn');
+        }
+
+        const user = await response.json();
+        document.getElementById('balance').textContent = `${user.balance.toLocaleString()} VND`;
+        document.getElementById('subscription').textContent = user.subscription ? 
+          user.subscription.charAt(0).toUpperCase() + user.subscription.slice(1) : 'Chưa đăng ký';
+        document.getElementById('referrals').textContent = `${user.referrals?.length || 0} người`;
+        document.getElementById('referralLink').value = `${window.location.origin}/dang-ky.html?ref=${user._id}`;
+
+        // Lấy lịch sử giao dịch
+        const transactionsResponse = await fetch('/api/transactions', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const transactions = await transactionsResponse.json();
+        
+        const tbody = document.getElementById('transactions');
+        tbody.innerHTML = transactions.map(t => `
+          <tr class="border-b">
+            <td class="py-2">${new Date(t.createdAt).toLocaleDateString()}</td>
+            <td class="py-2">${t.description}</td>
+            <td class="py-2 text-right ${t.amount > 0 ? 'text-green-600' : 'text-red-600'}">
+              ${t.amount > 0 ? '+' : ''}${t.amount.toLocaleString()} VND
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        alert(err.message);
+        window.location.href = '/dang-nhap.html';
+      }
+    }
+
+    // Đăng xuất
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = '/dang-nhap.html';
+    });
+
+    // Sao chép liên kết giới thiệu
+    function copyReferralLink() {
+      const link = document.getElementById('referralLink');
+      link.select();
+      document.execCommand('copy');
+      alert('Đã sao chép liên kết giới thiệu!');
+    }
+
+    // Khởi tạo
+    fetchUserData();
+  </script>
+</body>
+</html>
